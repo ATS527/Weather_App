@@ -1,16 +1,16 @@
 class WeatherData {
   dynamic weatherData;
-  var temperature;
-  var maxTemp;
-  var minTemp;
-  var feelTemp;
-  var pressure;
-  var humidity;
+  var temperature; //done
+  var maxTemp; //done
+  var minTemp; //done
+  var feelTemp; //done
+  var pressure; //done
+  var humidity; //done
   var visibility;
   var windSpeed;
   var windDegree;
-  String condition;
-  String cityName;
+  String condition; //done
+  String cityName; //done
 
   WeatherData({this.weatherData});
 
