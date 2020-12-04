@@ -31,30 +31,30 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
     var weatherData = await networking.getData();
     sleep(Duration(seconds: 5));
-    // Navigator.push(
-    //   context,
-    //   MaterialPageRoute(builder: (BuildContext context) {
-    //     return HomeScreen(weatherData: weatherData);
-    //   }),
-    // );
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (BuildContext context) {
+        return HomeScreen(weatherData: weatherData);
+      }),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: bgColorWidget(
-        color1: 0xffee0979,
-        color2: 0xffff6a00,
+        color1: 0xff30E8BF,
+        color2: 0xffFF8235,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
               "Weather App",
-              style: GoogleFonts.concertOne(
+              style: GoogleFonts.aBeeZee(
                 textStyle: TextStyle(
-                    color: Colors.white,
+                    color: Colors.black,
                     fontSize: 50.0,
-                    fontWeight: FontWeight.w200,
+                    fontWeight: FontWeight.w900,
                     letterSpacing: 2),
               ),
             ),
@@ -62,7 +62,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
               height: 70.0,
             ),
             SpinKitPouringHourglass(
-              color: Colors.amber,
+              color: Colors.brown[600],
               size: 80.0,
             ),
             SizedBox(height: 80),
@@ -70,17 +70,14 @@ class _LoadingScreenState extends State<LoadingScreen> {
               "Presented By:",
               style: GoogleFonts.concertOne(
                 textStyle: TextStyle(
-                    color: Colors.green[200],
-                    fontSize: 30,
-                    fontWeight: FontWeight.w100,
-                    letterSpacing: 3),
+                    color: Colors.black, fontSize: 30, letterSpacing: 3),
               ),
             ),
             SizedBox(height: 20),
             Text(
               "ATS527",
               style: GoogleFonts.concertOne(
-                color: Colors.black,
+                color: Colors.blueGrey[700],
                 fontWeight: FontWeight.bold,
                 textStyle: TextStyle(
                     fontSize: 25,
