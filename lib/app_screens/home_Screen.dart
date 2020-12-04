@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:locationApp/app_services/weather_data.dart';
 import 'package:locationApp/reusable_widgets.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -10,20 +11,26 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  WeatherData weatherValues;
+
   @override
   void initState() {
     super.initState();
-    print(widget.weatherData);
+    weatherValues = new WeatherData(weatherData: widget.weatherData);
+    weatherValues.assignValues();
+    print(weatherValues.cityName);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: bgColorWidget(
-        color1: 0xffee0979,
-        color2: 0xffff6a00,
+        color1: 0xff021B79,
+        color2: 0xff0575E6,
         child: Container(
-          child: Text(""),
+          child: Column(
+            children: <Widget>[],
+          ),
         ),
       ),
     );

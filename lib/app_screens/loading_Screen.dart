@@ -2,11 +2,11 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:locationApp/app_screens/home_Screen.dart';
-import 'package:locationApp/location_class.dart';
-import 'package:locationApp/networking.dart';
 import 'package:locationApp/reusable_widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:locationApp/constants.dart';
+import 'package:locationApp/app_services/location_class.dart';
+import 'package:locationApp/app_services/networking.dart';
 
 class LoadingScreen extends StatefulWidget {
   @override
@@ -27,7 +27,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
     await _location.getLocationValues();
     Networking networking = Networking(
         url:
-            "https://api.openweathermap.org/data/2.5/weather?lat=${_location.latitude}&lon=${_location.longitude}&appid=$kApiKey");
+            "https://api.openweathermap.org/data/2.5/weather?lat=${_location.latitude}&lon=${_location.longitude}&appid=$kApiKey&units=metric");
 
     var weatherData = await networking.getData();
     sleep(Duration(seconds: 5));
