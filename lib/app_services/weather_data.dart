@@ -1,3 +1,7 @@
+import 'package:locationApp/app_services/location_class.dart';
+import 'package:locationApp/app_services/networking.dart';
+import 'package:locationApp/constants.dart';
+
 class WeatherData {
   dynamic weatherData;
   var temperature; //done
@@ -6,30 +10,39 @@ class WeatherData {
   var feelTemp; //done
   var pressure; //done
   var humidity; //done
-  var visibility;
-  var windSpeed;
-  var windDegree;
+  var visibility; //done
+  var windSpeed; //done
+  var windDegree; //done
   String condition; //done
   String cityName; //done
 
-  WeatherData({this.weatherData});
+  LocationClass location = new LocationClass();
+  Networking networkHelper = new Networking();
 
-  void assignValues() {
-    if (weatherData == null) {
+  void assignValues(dynamic data) {
+    if (data == null) {
       print("There is some error!");
       return;
     } else {
-      temperature = weatherData["main"]["temp"];
-      cityName = weatherData["name"];
-      maxTemp = weatherData["main"]["temp_max"];
-      minTemp = weatherData["main"]["temp_min"];
-      feelTemp = weatherData["main"]["feels_like"];
-      condition = weatherData["weather"][0]["main"];
-      pressure = weatherData["main"]["pressure"];
-      humidity = weatherData["main"]["humidity"];
-      visibility = weatherData["visibility"];
-      windSpeed = weatherData["wind"]["speed"];
-      windDegree = weatherData["wind"]["deg"];
+      temperature = data["main"]["temp"];
+      cityName = data["name"];
+      maxTemp = data["main"]["temp_max"];
+      minTemp = data["main"]["temp_min"];
+      feelTemp = data["main"]["feels_like"];
+      condition = data["weather"][0]["main"];
+      pressure = data["main"]["pressure"];
+      humidity = data["main"]["humidity"];
+      visibility = data["visibility"];
+      windSpeed = data["wind"]["speed"];
+      windDegree = data["wind"]["deg"];
     }
+  }
+
+  Future<dynamic> getLocationWeather() async {
+    await location.locationRequest();
+    await location.getLocationValues();
+    weatherData = await networkHelper.getData(
+        "https://api.openweathermap.org/data/2.5/weather?lat=${location.latitude}&lon=${location.longitude}&appid=$kApiKey&units=metric");
+    return weatherData;
   }
 }

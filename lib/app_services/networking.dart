@@ -3,11 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class Networking {
-  String url;
-
-  Networking({this.url});
-
-  Future getData() async {
+  Future getData(String url) async {
     http.Response response = await http.get(url);
 
     if (response.statusCode == 200) {

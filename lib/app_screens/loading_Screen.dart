@@ -2,11 +2,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:locationApp/app_screens/home_Screen.dart';
+import 'package:locationApp/app_services/weather_data.dart';
 import 'package:locationApp/reusable_widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:locationApp/constants.dart';
-import 'package:locationApp/app_services/location_class.dart';
-import 'package:locationApp/app_services/networking.dart';
 
 class LoadingScreen extends StatefulWidget {
   @override
@@ -14,22 +12,16 @@ class LoadingScreen extends StatefulWidget {
 }
 
 class _LoadingScreenState extends State<LoadingScreen> {
-  LocationClass _location = new LocationClass();
-
+  WeatherData weatherClass;
   @override
   void initState() {
     super.initState();
+    weatherClass = new WeatherData();
     gotoHomePage();
   }
 
   void gotoHomePage() async {
-    await _location.locationRequest();
-    await _location.getLocationValues();
-    Networking networking = Networking(
-        url:
-            "https://api.openweathermap.org/data/2.5/weather?lat=${_location.latitude}&lon=${_location.longitude}&appid=$kApiKey&units=metric");
-
-    var weatherData = await networking.getData();
+    dynamic weatherData = await weatherClass.getLocationWeather();
     sleep(Duration(seconds: 5));
     Navigator.push(
       context,

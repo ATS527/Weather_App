@@ -34,13 +34,14 @@ Widget paramatrisedData({String assetImage, String parameter, var value}) {
             parameter,
             style: GoogleFonts.aBeeZee(
               fontSize: 20,
-              color: Colors.black,
+              color: Colors.blueGrey[800],
               fontWeight: FontWeight.w800,
             ),
           ),
           Text(
             value,
             style: GoogleFonts.aBeeZee(
+              color: Colors.black,
               fontSize: 20,
               fontWeight: FontWeight.w900,
             ),
