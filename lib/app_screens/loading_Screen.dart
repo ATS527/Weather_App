@@ -22,13 +22,16 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
   void gotoHomePage() async {
     dynamic weatherData = await weatherClass.getLocationWeather();
-    sleep(Duration(seconds: 5));
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (BuildContext context) {
-        return HomeScreen(weatherData: weatherData);
-      }),
-    );
+    sleep(Duration(seconds: 3));
+    if (weatherData != null) {
+      Navigator.pop(context);
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (BuildContext context) {
+          return HomeScreen(weatherData: weatherData);
+        }),
+      );
+    }
   }
 
   @override

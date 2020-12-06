@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:locationApp/app_services/weather_data.dart';
 import 'package:locationApp/reusable_widgets.dart';
-import 'package:locationApp/app_screens/search_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   final weatherData;
@@ -15,14 +14,33 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   WeatherData weatherValues = new WeatherData();
   dynamic weatherData;
+
+  bool _folded = true;
+  dynamic change = 1;
+  String enteredCityName;
+  final myController = TextEditingController();
+
   @override
   void initState() {
     super.initState();
     weatherData = widget.weatherData;
   }
 
-  void refreshButton() async {
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    myController.dispose();
+    super.dispose();
+  }
+
+  Future<void> refreshButton() async {
     weatherData = await weatherValues.getLocationWeather();
+    return weatherData;
+  }
+
+  Future<void> getCityWeather(cityName) async {
+    weatherData = await weatherValues.getCityWeather(cityName);
+    return weatherData;
   }
 
   @override
@@ -45,9 +63,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     FlatButton(
+                      hoverColor: Colors.blue,
                       onPressed: () {
                         setState(() {
-                          refreshButton();
+                          change = refreshButton();
                         });
                       },
                       child: Icon(
@@ -57,8 +76,71 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                     Padding(
-                        padding: EdgeInsets.all(10),
-                        child: AnimatedSearchBar()),
+                      padding: EdgeInsets.all(10),
+                      child: AnimatedContainer(
+                        duration: Duration(milliseconds: 300),
+                        width: _folded ? 56 : 280,
+                        height: 56,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: Colors.white38,
+                          boxShadow: kElevationToShadow[6],
+                        ),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: Container(
+                                padding: EdgeInsets.only(left: 16),
+                                child: !_folded
+                                    ? TextField(
+                                        controller: myController,
+                                        style: GoogleFonts.aBeeZee(
+                                          color: Colors.white,
+                                          fontSize: 20,
+                                        ),
+                                        textInputAction: TextInputAction.done,
+                                        decoration: InputDecoration(
+                                            hintText: 'Search any city',
+                                            hintStyle: GoogleFonts.aBeeZee(
+                                              color: Colors.white,
+                                            ),
+                                            border: InputBorder.none),
+                                      )
+                                    : null,
+                              ),
+                            ),
+                            Container(
+                              child: Material(
+                                type: MaterialType.transparency,
+                                child: InkWell(
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(_folded ? 32 : 0),
+                                    topRight: Radius.circular(32),
+                                    bottomLeft:
+                                        Radius.circular(_folded ? 32 : 0),
+                                    bottomRight: Radius.circular(32),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(16.0),
+                                    child: Icon(
+                                      _folded ? Icons.search : Icons.search,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                  onTap: () {
+                                    setState(() {
+                                      enteredCityName = myController.text;
+                                      change = getCityWeather(enteredCityName);
+                                      _folded = !_folded;
+                                    });
+                                  },
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -81,9 +163,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ],
               ),
-              SizedBox(
-                height: 30,
-              ),
+              // SizedBox(
+              //   height: 30,
+              // ),
               Text(
                 "${weatherValues.temperature.toString()}°",
                 style: GoogleFonts.aBeeZee(
@@ -91,9 +173,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   fontSize: 100,
                 ),
               ),
-              SizedBox(
-                height: 5,
-              ),
+              // SizedBox(
+              //   height: 5,
+              // ),
               Text(
                 "${weatherValues.maxTemp}° / ${weatherValues.minTemp}° Feels like ${weatherValues.feelTemp}°",
                 style: GoogleFonts.aBeeZee(
@@ -108,7 +190,7 @@ class _HomeScreenState extends State<HomeScreen> {
               Text(
                 weatherValues.condition,
                 style: GoogleFonts.aBeeZee(
-                  fontSize: 25,
+                  fontSize: 35,
                   fontWeight: FontWeight.w800,
                   color: Colors.white,
                 ),
@@ -118,7 +200,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               Container(
                 margin: EdgeInsets.all(20),
-                padding: EdgeInsets.all(15),
+                padding: EdgeInsets.all(30),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
@@ -139,7 +221,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               Container(
                 margin: EdgeInsets.all(10),
-                padding: EdgeInsets.all(20),
+                padding: EdgeInsets.all(30),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   color: Color(0xff8DB3F2),
@@ -162,7 +244,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ],
                     ),
                     SizedBox(
-                      height: 30,
+                      height: 50,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
