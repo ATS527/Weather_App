@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:locationApp/app_services/weather_data.dart';
 import 'package:locationApp/reusable_widgets.dart';
+import 'package:locationApp/app_screens/search_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   final weatherData;
@@ -53,6 +54,30 @@ class _HomeScreenState extends State<HomeScreen> {
                         color: Colors.white,
                         size: 40,
                       ),
+                    ),
+                    FlatButton.icon(
+                      label: Text(
+                        "Location",
+                        style: GoogleFonts.aBeeZee(
+                          textStyle: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                      icon: Icon(
+                        Icons.search,
+                        color: Colors.white,
+                        size: 40,
+                      ),
+                      onPressed: () {
+                        print("pressed");
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (BuildContext context) {
+                          return SearchPage();
+                        }));
+                      },
                     ),
                   ],
                 ),
