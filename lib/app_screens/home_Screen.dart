@@ -31,6 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
     weatherValues.assignValues(weatherData);
     print(weatherValues.cityName);
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: bgColorWidget(
         color1: 0xff5A50F1,
         color2: 0xff91D1FD,
@@ -55,30 +56,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         size: 40,
                       ),
                     ),
-                    FlatButton.icon(
-                      label: Text(
-                        "Location",
-                        style: GoogleFonts.aBeeZee(
-                          textStyle: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                      icon: Icon(
-                        Icons.search,
-                        color: Colors.white,
-                        size: 40,
-                      ),
-                      onPressed: () {
-                        print("pressed");
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (BuildContext context) {
-                          return SearchPage();
-                        }));
-                      },
-                    ),
+                    Padding(
+                        padding: EdgeInsets.all(10),
+                        child: AnimatedSearchBar()),
                   ],
                 ),
               ),
