@@ -1,8 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:locationApp/app_services/weather_data.dart';
 import 'package:locationApp/reusable_widgets.dart';
-import 'package:locationApp/app_screens/search_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   final weatherData;
@@ -15,14 +16,30 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   WeatherData weatherValues = new WeatherData();
   dynamic weatherData;
+  bool _folded = true;
+  String enteredCity;
+
+  final myController = TextEditingController();
+
   @override
   void initState() {
     super.initState();
     weatherData = widget.weatherData;
   }
 
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    myController.dispose();
+    super.dispose();
+  }
+
   void refreshButton() async {
     weatherData = await weatherValues.getLocationWeather();
+  }
+
+  void getCityWeather(String cityName) async {
+    weatherData = await weatherValues.getCityWeather(cityName);
   }
 
   @override
@@ -58,7 +75,71 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     Padding(
                         padding: EdgeInsets.all(10),
-                        child: AnimatedSearchBar()),
+                        child: AnimatedContainer(
+                          duration: Duration(milliseconds: 180),
+                          width: _folded ? 56 : 280,
+                          height: 56,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color: Colors.white38,
+                            boxShadow: kElevationToShadow[6],
+                          ),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: Container(
+                                  padding: EdgeInsets.only(left: 16),
+                                  child: !_folded
+                                      ? TextField(
+                                          controller: myController,
+                                          style: GoogleFonts.aBeeZee(
+                                            color: Colors.white,
+                                            fontSize: 20,
+                                          ),
+                                          decoration: InputDecoration(
+                                              hintText: 'Search any City',
+                                              hintStyle: GoogleFonts.aBeeZee(
+                                                color: Colors.white,
+                                              ),
+                                              border: InputBorder.none),
+                                        )
+                                      : null,
+                                ),
+                              ),
+                              Container(
+                                child: Material(
+                                  type: MaterialType.transparency,
+                                  child: InkWell(
+                                    borderRadius: BorderRadius.only(
+                                      topLeft:
+                                          Radius.circular(_folded ? 32 : 0),
+                                      topRight: Radius.circular(32),
+                                      bottomLeft:
+                                          Radius.circular(_folded ? 32 : 0),
+                                      bottomRight: Radius.circular(32),
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(16.0),
+                                      child: Icon(
+                                        _folded ? Icons.search : Icons.done,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    onTap: () {
+                                      setState(() {
+                                        _folded = !_folded;
+                                        enteredCity = myController.text;
+                                        getCityWeather(enteredCity);
+                                        // weatherData = weatherValues
+                                        //     .getCityWeather(enteredCity);
+                                      });
+                                    },
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                        )),
                   ],
                 ),
               ),

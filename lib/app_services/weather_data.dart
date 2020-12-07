@@ -45,4 +45,10 @@ class WeatherData {
         "https://api.openweathermap.org/data/2.5/weather?lat=${location.latitude}&lon=${location.longitude}&appid=$kApiKey&units=metric");
     return weatherData;
   }
+
+  Future<dynamic> getCityWeather(String cityName) async {
+    weatherData = await networkHelper.getData(
+        "https://api.openweathermap.org/data/2.5/weather?q=$cityName&appid=$kApiKey&units=metric");
+    return weatherData;
+  }
 }
