@@ -72,10 +72,10 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                     Padding(
-                        padding: EdgeInsets.all(10),
+                        padding: EdgeInsets.all(25),
                         child: AnimatedContainer(
                           duration: Duration(milliseconds: 180),
-                          width: _folded ? 56 : 280,
+                          width: _folded ? 56 : 240,
                           height: 56,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20),
@@ -160,18 +160,12 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ],
               ),
-              SizedBox(
-                height: 30,
-              ),
               Text(
                 "${weatherValues.temperature.toString()}°",
                 style: GoogleFonts.aBeeZee(
                   color: Colors.white,
                   fontSize: 100,
                 ),
-              ),
-              SizedBox(
-                height: 5,
               ),
               Text(
                 "${weatherValues.maxTemp}° / ${weatherValues.minTemp}° Feels like ${weatherValues.feelTemp}°",
@@ -187,7 +181,7 @@ class _HomeScreenState extends State<HomeScreen> {
               Text(
                 weatherValues.condition,
                 style: GoogleFonts.aBeeZee(
-                  fontSize: 25,
+                  fontSize: 40,
                   fontWeight: FontWeight.w800,
                   color: Colors.white,
                 ),
@@ -241,7 +235,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ],
                     ),
                     SizedBox(
-                      height: 30,
+                      height: 35,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
