@@ -23,6 +23,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
   void gotoHomePage() async {
     dynamic weatherData = await weatherClass.getLocationWeather();
     sleep(Duration(seconds: 5));
+    Navigator.pop(context);
     Navigator.push(
       context,
       MaterialPageRoute(builder: (BuildContext context) {
@@ -35,8 +36,8 @@ class _LoadingScreenState extends State<LoadingScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: bgColorWidget(
-        color1: 0xff30E8BF,
-        color2: 0xffFF8235,
+        color1: 0xffFF8235,
+        color2: 0xff30E8BF,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
