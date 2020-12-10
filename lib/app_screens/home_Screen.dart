@@ -35,11 +35,16 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Future<void> refreshButton() async {
     weatherData = await weatherValues.getLocationWeather();
-    return weatherData;
+    setState(() {
+      data = weatherData;
+    });
   }
 
   Future<void> getCityWeather(String cityName) async {
     weatherData = await weatherValues.getCityWeather(cityName);
+    setState(() {
+      data = weatherData;
+    });
   }
 
   @override
@@ -62,7 +67,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   FlatButton(
                     onPressed: () {
                       setState(() {
-                        data = refreshButton();
+                        refreshButton();
                         print(weatherData);
                       });
                     },
@@ -128,10 +133,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   onTap: () {
                                     setState(() {
                                       _folded = !_folded;
-                                      // enteredCity = myController.text;
                                       getCityWeather(enteredCity);
-                                      // weatherData = weatherValues
-                                      //     .getCityWeather(enteredCity);
                                     });
                                   },
                                 ),
