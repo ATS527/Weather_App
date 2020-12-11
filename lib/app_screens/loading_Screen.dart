@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:locationApp/app_services/weather_data.dart';
 import 'package:locationApp/reusable_widgets.dart';
-import 'home_Screen.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:locationApp/app_screens/home_Screen.dart';
 
 var height;
 var width;
