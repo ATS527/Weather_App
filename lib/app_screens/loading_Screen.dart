@@ -1,10 +1,13 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:locationApp/app_screens/home_Screen.dart';
 import 'package:locationApp/app_services/weather_data.dart';
 import 'package:locationApp/reusable_widgets.dart';
+import 'home_Screen.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+var height;
+var width;
 
 class LoadingScreen extends StatefulWidget {
   @override
@@ -16,6 +19,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
   @override
   void initState() {
     super.initState();
+
     weatherClass = new WeatherData();
     gotoHomePage();
   }
@@ -34,51 +38,60 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
   @override
   Widget build(BuildContext context) {
+    height = MediaQuery.of(context).size.height;
+    width = MediaQuery.of(context).size.width;
+    print("height = $height");
     return Scaffold(
       body: bgColorWidget(
         color1: 0xffFF8235,
         color2: 0xff30E8BF,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              "Weather App",
-              style: GoogleFonts.aBeeZee(
-                textStyle: TextStyle(
-                    color: Colors.black,
-                    fontSize: 50.0,
-                    fontWeight: FontWeight.w900,
-                    letterSpacing: 2),
-              ),
-            ),
-            SizedBox(
-              height: 70.0,
-            ),
-            SpinKitPouringHourglass(
-              color: Colors.brown[600],
-              size: 80.0,
-            ),
-            SizedBox(height: 80),
-            Text(
-              "Presented By:",
-              style: GoogleFonts.concertOne(
-                textStyle: TextStyle(
-                    color: Colors.black, fontSize: 30, letterSpacing: 3),
-              ),
-            ),
-            SizedBox(height: 20),
-            Text(
-              "ATS527",
-              style: GoogleFonts.concertOne(
-                color: Colors.blueGrey[700],
-                fontWeight: FontWeight.bold,
-                textStyle: TextStyle(
-                    fontSize: 25,
-                    // fontWeight: FontWeight.w500,
-                    letterSpacing: 3),
-              ),
-            ),
-          ],
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text(
+                  "Weather App",
+                  style: GoogleFonts.abel(
+                    textStyle: TextStyle(
+                        color: Colors.black,
+                        fontSize: height * 0.08,
+                        fontWeight: FontWeight.w900,
+                        letterSpacing: 2),
+                  ),
+                ),
+                SizedBox(
+                  height: height * 0.07,
+                ),
+                SpinKitPouringHourglass(
+                  color: Colors.brown[600],
+                  size: height * 0.13,
+                ),
+                SizedBox(height: height * 0.17),
+                Text(
+                  "Presented By:",
+                  style: GoogleFonts.concertOne(
+                    textStyle: TextStyle(
+                        color: Colors.black,
+                        fontSize: height * 0.04,
+                        letterSpacing: 3),
+                  ),
+                ),
+                SizedBox(height: height * 0.04),
+                Text(
+                  "ATS527",
+                  style: GoogleFonts.concertOne(
+                    color: Colors.blueGrey[700],
+                    fontWeight: FontWeight.bold,
+                    textStyle: TextStyle(
+                        fontSize: height * 0.04,
+                        // fontWeight: FontWeight.w500,
+                        letterSpacing: 3),
+                  ),
+                ),
+              ],
+            );
+          },
         ),
       ),
     );

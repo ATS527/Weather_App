@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:locationApp/app_screens/loading_Screen.dart';
 
 Widget bgColorWidget({color1, color2, child}) {
   return Container(
-    width: double.infinity,
-    height: double.infinity,
+    width: width,
+    height: height,
     decoration: BoxDecoration(
       gradient: LinearGradient(
           begin: Alignment.topRight,
