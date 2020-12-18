@@ -28,12 +28,12 @@ class _HomeScreenState extends State<HomeScreen> {
     weatherData = widget.weatherData;
   }
 
-  // @override
-  // void dispose() {
-  //   // Clean up the controller when the widget is disposed.
-  //   myController.dispose();
-  //   super.dispose();
-  // }
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    myController.dispose();
+    super.dispose();
+  }
 
   Future<void> refreshButton() async {
     weatherData = await weatherValues.getLocationWeather();
@@ -87,9 +87,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       Padding(
                           padding: EdgeInsets.all(width * 0.03),
                           child: AnimatedContainer(
-                            duration: Duration(milliseconds: 180),
-                            width: _folded ? width * 0.145 : width * 0.6,
-                            height: height * 0.085,
+                            duration: Duration(milliseconds: 170),
+                            width: _folded ? width * 0.145 : width * 0.64,
+                            height: height * 0.073,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
                               color: Colors.white38,
@@ -113,6 +113,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                             decoration: InputDecoration(
                                                 hintText: 'Search any City',
                                                 hintStyle: GoogleFonts.aBeeZee(
+                                                  fontSize: width * 0.057,
                                                   color: Colors.white,
                                                 ),
                                                 border: InputBorder.none),
