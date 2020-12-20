@@ -5,6 +5,7 @@ import 'package:locationApp/app_services/weather_data.dart';
 import 'package:locationApp/reusable_widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:locationApp/app_screens/home_Screen.dart';
+import 'package:flutter/services.dart';
 
 var height;
 var width;
@@ -24,7 +25,13 @@ class _LoadingScreenState extends State<LoadingScreen> {
   }
 
   void gotoHomePage() async {
-    dynamic weatherData = await weatherClass.getLocationWeather();
+    dynamic weatherData;
+    try {
+      weatherData = await weatherClass.getLocationWeather();
+    } catch (e) {
+      SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+    }
+
     sleep(Duration(seconds: 5));
     Navigator.pop(context);
     Navigator.push(
