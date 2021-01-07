@@ -1,3 +1,4 @@
-# Weather App
+#Weather App
 
-Its an app i made with Flutter framework.Its my very first successfull apk release.I incorporated the final builded apks in the final apk folder...please check it out....
+Its an app made by the group 11-15 for the presentation purpose...
+Its build with beginner to intermediate skills so please judge by the incorporated bugs
