@@ -45,3 +45,4 @@ app.*.map.json
 
 #app keystore password
 /android/key.properties
+/lib/constants.dart
